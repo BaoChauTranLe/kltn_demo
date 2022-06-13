@@ -38,7 +38,7 @@ class LoadingCustom extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  "assets/document-loader.gif",
+                                  "assets/file_search (1).png",
                                   height: 200.0,
                                   width: 200.0,
                                 ),

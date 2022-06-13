@@ -50,3 +50,10 @@ Future<String> delete(String filename) async {
   http.Response response = await http.get(Uri.parse(url));
   return response.body;
 }
+
+Future<String> deleteAll() async {
+  String url = 'http://192.168.20.166:8000/deleteAll';
+  print(url);
+  http.Response response = await http.get(Uri.parse(url));
+  return response.body;
+}

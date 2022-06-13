@@ -16,6 +16,7 @@ class HistoryDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     display_image = fileFromBase64String(detail['anno']['result_image']);
     return Scaffold(
+      backgroundColor: Colors.black87,
       body: Column(
         children: [
           Flexible(
@@ -25,7 +26,6 @@ class HistoryDetail extends StatelessWidget {
           Flexible(
             flex: 1,
             child: Container(
-              color: Colors.black87,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -57,8 +57,8 @@ class HistoryDetail extends StatelessWidget {
                           '\nTOTAL_COST: ' +
                           detail['anno']['total_cost'];
                       Clipboard.setData(ClipboardData(text: content)).then((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Coppied")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Coppied")));
                       });
                     },
                     style: OutlinedButton.styleFrom(
@@ -81,8 +81,113 @@ class HistoryDetail extends StatelessWidget {
           Flexible(
             flex: 3,
             child: Container(
-              color: Colors.black87,
-              child: Container(),
+              padding: EdgeInsets.fromLTRB(32.h, 0, 32.h, 0),
+              constraints: const BoxConstraints.expand(),
+              alignment: Alignment.topLeft,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "Extract date: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: detail['anno']['detect_day'],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "SELLER: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: detail['anno']['seller'],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "ADDRESS: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: detail['anno']['address'],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "TIMESTAMP: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: detail['anno']['timestamp'],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "TOTAL_COST: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: detail['anno']['total_cost'],
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
