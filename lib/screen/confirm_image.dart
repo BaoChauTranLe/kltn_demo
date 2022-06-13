@@ -36,6 +36,7 @@ class _ConfirmImageScreenState extends State<ConfirmImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
       body: Column(
         children: [
           Flexible(
@@ -49,7 +50,6 @@ class _ConfirmImageScreenState extends State<ConfirmImageScreen> {
           Flexible(
             flex: 3,
             child: Container(
-              color: Colors.black87,
               child: isDetected ? buildInforRegion() : null,
             ),
           ),
@@ -210,27 +210,9 @@ class _ConfirmImageScreenState extends State<ConfirmImageScreen> {
     var data;
     return Container(
       alignment: Alignment.center,
-      color: Colors.black87,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          OutlinedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(Routes.cameraScreen);
-            },
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(width: 4.h, color: Colors.blue),
-            ),
-            child: Row(
-              children: const [
-                Icon(Icons.refresh),
-                SizedBox(
-                  width: 4,
-                ),
-                Text("Retake"),
-              ],
-            ),
-          ),
           isDetected
               ? OutlinedButton(
                   onPressed: () {
@@ -291,7 +273,6 @@ class _ConfirmImageScreenState extends State<ConfirmImageScreen> {
 
                     //url = 'http://10.0.2.2:5000/';
                     data = await detect(image_file);
-                    print(data);
                     detectResult = jsonDecode(data);
                     setState(() {
                       isDetected = true;

@@ -31,23 +31,6 @@ class HistoryDetail extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 4.h, color: Colors.blue),
-                    ),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.history),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Text("History"),
-                      ],
-                    ),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
                       String content = 'SELLER: ' +
                           detail['anno']['seller'] +
                           '\nADDRESS: ' +

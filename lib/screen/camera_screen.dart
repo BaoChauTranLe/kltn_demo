@@ -192,20 +192,10 @@ class _CameraScreenState extends State<CameraScreen>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 50,
-              child: IconButton(
-                onPressed: () {
-                  _getImageGallery();
-                },
-                icon: const Icon(
-                  Icons.collections,
-                  color: Colors.white,
-                  size: 32,
-                ),
-              ),
             ),
             buildCaptureButton(),
             const SizedBox(
