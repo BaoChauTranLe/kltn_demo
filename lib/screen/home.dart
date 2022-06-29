@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (deleteResult['noti'] ==
                         'Success') {
                       setState(() {
-                        //historyData = fetchHistory();
+                        historyData = fetchHistory();
                       });
                       ScaffoldMessenger.of(context)
                           .showSnackBar(const SnackBar(
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               if (deleteResult['noti'] ==
                                                   'Success') {
                                                 setState(() {
-                                                  //historyData = fetchHistory();
+                                                  historyData = fetchHistory();
                                                 });
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(const SnackBar(

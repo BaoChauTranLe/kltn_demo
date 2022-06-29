@@ -221,7 +221,7 @@ class _CameraScreenState extends State<CameraScreen>
               value: _currentZoomLevel,
               min: _minAvailableZoom,
               max: _maxAvailableZoom,
-              divisions: 1,
+
               activeColor: Colors.white,
               inactiveColor: Colors.white30,
               onChanged: (value) async {

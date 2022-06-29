@@ -5,9 +5,9 @@
     </uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="kltn"
+        android:label="RIEA"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/img"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
