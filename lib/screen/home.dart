@@ -29,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black,
         title: Text(
           'Receipts information extract app',
-          style: TextStyle(color: Colors.white,),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: Stack(
@@ -44,14 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () async {
                     String data = await deleteAll();
                     var deleteResult = jsonDecode(data);
-                    if (deleteResult['noti'] ==
-                        'Success') {
+                    if (deleteResult['noti'] == 'Success') {
                       setState(() {
                         historyData = fetchHistory();
                       });
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
-                          content: Text("Deleted")));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Deleted")));
                     }
                   },
                   child: const Text(
@@ -59,131 +59,166 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
-                FutureBuilder<String>(
-                  future: historyData,
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.hasData) {
-                      var detectResult = jsonDecode(snapshot.data!);
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: detectResult['images'].length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HistoryDetail(
-                                              detectResult['images'][index])),
-                                    );
-                                    //HistoryDetail
-                                  },
-                                  child: Container(
-                                    padding:
-                                    EdgeInsets.fromLTRB(16.h, 5.h, 16.h, 5.h),
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          flex:
-                                          2 /*or any integer value above 0 (optional)*/,
-                                          child: Image.memory(
-                                            base64Decode(detectResult['images'][index]
-                                            ['anno']['result_image']),
-                                            height: 72,
-                                          ),
-                                        ),
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          flex:
-                                          6 /*or any integer value above 0 (optional)*/,
-                                          child: Container(
-                                            padding:
-                                            EdgeInsets.fromLTRB(16.h, 0, 16.h, 0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  detectResult['images'][index]
-                                                  ['anno']['seller'],
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                  ),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                Text(
-                                                  detectResult['images'][index]
-                                                  ['anno']['total_cost'],
-                                                  style:
-                                                  TextStyle(color: Colors.white),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                Text(
-                                                  detectResult['images'][index]
-                                                  ['anno']['detect_day'],
-                                                  style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
-                                                      color: Colors.white70),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ],
+                Expanded(
+                  child: SingleChildScrollView(
+                      child: Container(
+                    child: FutureBuilder<String>(
+                      future: historyData,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.hasData) {
+                          var detectResult = jsonDecode(snapshot.data!);
+                          return ListView.builder(
+                            physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: detectResult['images'].length,
+                              itemBuilder:
+                                  (BuildContext context, int index) {
+                                return Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HistoryDetail(
+                                                      detectResult['images']
+                                                      [index])),
+                                        );
+                                        //HistoryDetail
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.fromLTRB(
+                                            16.h, 5.h, 16.h, 5.h),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              fit: FlexFit.tight,
+                                              flex:
+                                              2 /*or any integer value above 0 (optional)*/,
+                                              child: Image.memory(
+                                                base64Decode(
+                                                    detectResult['images']
+                                                    [index]['anno']
+                                                    ['result_image']),
+                                                height: 72,
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          flex:
-                                          1 /*or any integer value above 0 (optional)*/,
-                                          child: IconButton(
-                                            onPressed: () async {
-                                              String data = await delete(
-                                                  detectResult['images'][index]['name']);
-                                              var deleteResult = jsonDecode(data);
-                                              if (deleteResult['noti'] ==
-                                                  'Success') {
-                                                setState(() {
-                                                  historyData = fetchHistory();
-                                                });
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                    content: Text("Deleted")));
-                                              }
-                                            },
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
+                                            Flexible(
+                                              fit: FlexFit.tight,
+                                              flex:
+                                              6 /*or any integer value above 0 (optional)*/,
+                                              child: Container(
+                                                padding:
+                                                EdgeInsets.fromLTRB(
+                                                    16.h, 0, 16.h, 0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Text(
+                                                      detectResult['images']
+                                                      [index]
+                                                      ['anno']
+                                                      ['seller'],
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        color: Colors.white,
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Text(
+                                                      detectResult['images']
+                                                      [index]
+                                                      ['anno']
+                                                      ['total_cost'],
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.white),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Text(
+                                                      detectResult['images']
+                                                      [index]
+                                                      ['anno']
+                                                      ['detect_day'],
+                                                      style: TextStyle(
+                                                          fontStyle:
+                                                          FontStyle
+                                                              .italic,
+                                                          color: Colors
+                                                              .white70),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            Flexible(
+                                              fit: FlexFit.tight,
+                                              flex:
+                                              1 /*or any integer value above 0 (optional)*/,
+                                              child: IconButton(
+                                                onPressed: () async {
+                                                  String data = await delete(
+                                                      detectResult['images']
+                                                      [index]['name']);
+                                                  var deleteResult =
+                                                  jsonDecode(data);
+                                                  if (deleteResult[
+                                                  'noti'] ==
+                                                      'Success') {
+                                                    setState(() {
+                                                      historyData =
+                                                          fetchHistory();
+                                                    });
+                                                    ScaffoldMessenger.of(
+                                                        context)
+                                                        .showSnackBar(
+                                                        const SnackBar(
+                                                            content: Text(
+                                                                "Deleted")));
+                                                  }
+                                                },
+                                                icon: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Divider(
-                                  color: Colors.white70,
-                                  thickness: 1,
-                                  indent: 50.h,
-                                  endIndent: 50.h,
-                                ),
-                              ],
-                            );
-                          });
-                    }
-                    return CircularProgressIndicator();
-                  },
+                                    Divider(
+                                      color: Colors.white70,
+                                      thickness: 1,
+                                      indent: 50.h,
+                                      endIndent: 50.h,
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+                        return CircularProgressIndicator();
+                      },
+                    ),
+                  ),),
                 ),
               ],
             ),
@@ -196,16 +231,17 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 FloatingActionButton(
-                  onPressed: (){
+                  onPressed: () {
                     _getImageGallery();
                   },
-                  child: Icon(Icons.collections,),
+                  child: Icon(
+                    Icons.collections,
+                  ),
                 ),
                 SizedBox(width: 16.0),
                 FloatingActionButton(
-                  onPressed: (){
-                    Navigator.of(context).pushNamed(
-                        Routes.cameraScreen);
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(Routes.cameraScreen);
                   },
                   child: Icon(Icons.add_a_photo),
                 ),
@@ -231,7 +267,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeToConfirmScreen(File image) {
-    Navigator.of(context).pushNamed(
-        Routes.confirmImage, arguments: image);
+    Navigator.of(context).pushNamed(Routes.confirmImage, arguments: image);
   }
 }
